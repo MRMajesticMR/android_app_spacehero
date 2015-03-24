@@ -8,11 +8,15 @@ import org.andengine.ui.activity.BaseGameActivity;
 import ru.majestic.android_app_spacehero.andengine.GameCamera;
 import ru.majestic.android_app_spacehero.andengine.GameEngineOptions;
 import ru.majestic.android_app_spacehero.andengine.GameScene;
+import ru.majestic.android_app_spacehero.menu.impl.MainMenu;
+import ru.majestic.android_app_spacehero.resources.ResourceManager;
 
 
 public class GameActivity extends BaseGameActivity {
 
    private Camera camera;
+   
+   private MainMenu mainMenu;
    
 	@Override
 	public EngineOptions onCreateEngineOptions() {
@@ -22,18 +26,25 @@ public class GameActivity extends BaseGameActivity {
 	}
 
 	@Override
-	public void onCreateResources(OnCreateResourcesCallback pOnCreateResourcesCallback) throws Exception {		
-		
+	public void onCreateResources(OnCreateResourcesCallback pOnCreateResourcesCallback) throws Exception {
+	   ResourceManager.getInstance().loadResources(getEngine(), this);
+	   
+	   mainMenu = new MainMenu(camera.getWidth(), camera.getHeight());
+	   
 		pOnCreateResourcesCallback.onCreateResourcesFinished();
 	}
 
 	@Override
-	public void onCreateScene(OnCreateSceneCallback pOnCreateSceneCallback) throws Exception {	   
+	public void onCreateScene(OnCreateSceneCallback pOnCreateSceneCallback) throws Exception {
 		pOnCreateSceneCallback.onCreateSceneFinished(new GameScene());
 	}
 
 	@Override
 	public void onPopulateScene(Scene pScene, OnPopulateSceneCallback pOnPopulateSceneCallback) throws Exception {
+	   pScene.attachChild(mainMenu);
+	   
+	   mainMenu.show(pScene);
+	   
 		pOnPopulateSceneCallback.onPopulateSceneFinished();
 	}		
 
