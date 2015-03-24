@@ -1,6 +1,7 @@
 package ru.majestic.android_app_spacehero.activities;
 
 import org.andengine.engine.camera.Camera;
+import org.andengine.engine.camera.hud.HUD;
 import org.andengine.engine.options.EngineOptions;
 import org.andengine.entity.scene.Scene;
 import org.andengine.ui.activity.BaseGameActivity;
@@ -29,7 +30,7 @@ public class GameActivity extends BaseGameActivity {
 	public void onCreateResources(OnCreateResourcesCallback pOnCreateResourcesCallback) throws Exception {
 	   ResourceManager.getInstance().loadResources(getEngine(), this);
 	   
-	   mainMenu = new MainMenu(camera.getWidth(), camera.getHeight());
+	   mainMenu = new MainMenu();
 	   
 		pOnCreateResourcesCallback.onCreateResourcesFinished();
 	}
@@ -41,9 +42,8 @@ public class GameActivity extends BaseGameActivity {
 
 	@Override
 	public void onPopulateScene(Scene pScene, OnPopulateSceneCallback pOnPopulateSceneCallback) throws Exception {
-	   pScene.attachChild(mainMenu);
-	   
-	   mainMenu.show(pScene);
+	   mainMenu.setCamera(camera);
+	   mainMenu.show();
 	   
 		pOnPopulateSceneCallback.onPopulateSceneFinished();
 	}		

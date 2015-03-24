@@ -1,5 +1,7 @@
 package ru.majestic.android_app_spacehero.menu.impl;
 
+import org.andengine.engine.camera.Camera;
+import org.andengine.engine.camera.hud.HUD;
 import org.andengine.entity.Entity;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.sprite.ButtonSprite;
@@ -7,12 +9,11 @@ import org.andengine.entity.sprite.ButtonSprite.OnClickListener;
 import org.andengine.entity.sprite.Sprite;
 
 import android.util.Log;
-
 import ru.majestic.android_app_spacehero.menu.IGameMenu;
 import ru.majestic.android_app_spacehero.menu.listeners.GameMenuVisibleListener;
 import ru.majestic.android_app_spacehero.resources.ResourceManager;
 
-public class MainMenu extends Entity implements IGameMenu, OnClickListener {   
+public class MainMenu extends HUD implements IGameMenu, OnClickListener {   
    
    private static final String LOG_TAG = MainMenu.class.getSimpleName();
    
@@ -23,20 +24,24 @@ public class MainMenu extends Entity implements IGameMenu, OnClickListener {
    
    private boolean   menuVisible;
    
-   public MainMenu(float menuWidth, float menuHeight) {
-      initViews(menuWidth, menuHeight);
-      
+   public MainMenu() {
       this.menuVisible = false;
    }
    
-   private void initViews(float menuWidth, float menuHeight) {
+   @Override
+   public void setCamera(Camera camera) {
+      super.setCamera(camera);
+      
+      initViews();
+   }
+   
+   private void initViews() {
       startButton = new ButtonSprite(0, 0, ResourceManager.getInstance().getStartGameBtnTextureRegion(), ResourceManager.getInstance().getEngine().getVertexBufferObjectManager());
       
-      startButton.setVisible  (false);
-      startButton.setWidth    (menuWidth * 0.8f);
-      startButton.setHeight   (menuHeight * 0.1f);
-      startButton.setX        ((menuWidth - startButton.getWidth()) / 2);
-      startButton.setY        (menuHeight * 0.7f);
+      startButton.setWidth    (getCamera().getWidth() * 0.8f);
+      startButton.setHeight   (getCamera().getHeight() * 0.1f);
+      startButton.setX        ((getCamera().getWidth() - startButton.getWidth()) / 2);
+      startButton.setY        (getCamera().getHeight() * 0.7f);
       
       startButton.setOnClickListener(this);         
       
@@ -44,15 +49,12 @@ public class MainMenu extends Entity implements IGameMenu, OnClickListener {
    }      
    
    @Override
-   public void show(Scene scene) {
-      scene.registerTouchArea(startButton);
+   public void show() {
       
-      startButton.setVisible(true);
    }
 
    @Override
    public void hide() {
-      startButton.setVisible(false);
       
    }
    
