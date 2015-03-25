@@ -6,7 +6,7 @@ import ru.majestic.android_app_spacehero.menu.listeners.GameMenuVisibleListener;
 
 public interface IGameMenu {
 
-   public void       show           (Scene scene);
+   public void       show           ();
    public void       hide           ();   
    public boolean    isMenuVisible  ();
    

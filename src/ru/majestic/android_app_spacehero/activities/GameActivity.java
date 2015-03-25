@@ -1,7 +1,6 @@
 package ru.majestic.android_app_spacehero.activities;
 
 import org.andengine.engine.camera.Camera;
-import org.andengine.engine.camera.hud.HUD;
 import org.andengine.engine.options.EngineOptions;
 import org.andengine.entity.scene.Scene;
 import org.andengine.ui.activity.BaseGameActivity;
@@ -9,15 +8,22 @@ import org.andengine.ui.activity.BaseGameActivity;
 import ru.majestic.android_app_spacehero.andengine.GameCamera;
 import ru.majestic.android_app_spacehero.andengine.GameEngineOptions;
 import ru.majestic.android_app_spacehero.andengine.GameScene;
+import ru.majestic.android_app_spacehero.menu.MenuSwitcher;
 import ru.majestic.android_app_spacehero.menu.impl.MainMenu;
+import ru.majestic.android_app_spacehero.menu.impl.TutorialMenu;
+import ru.majestic.android_app_spacehero.menu.listeners.MainMenuOnButtonsClickedListeners;
 import ru.majestic.android_app_spacehero.resources.ResourceManager;
+import android.view.KeyEvent;
 
 
-public class GameActivity extends BaseGameActivity {
+public class GameActivity extends BaseGameActivity implements MainMenuOnButtonsClickedListeners {
 
    private Camera camera;
    
-   private MainMenu mainMenu;
+   private MenuSwitcher    menuSwitcher;
+   
+   private MainMenu        mainMenu;
+   private TutorialMenu    tutorialMenu;
    
 	@Override
 	public EngineOptions onCreateEngineOptions() {
@@ -30,7 +36,12 @@ public class GameActivity extends BaseGameActivity {
 	public void onCreateResources(OnCreateResourcesCallback pOnCreateResourcesCallback) throws Exception {
 	   ResourceManager.getInstance().loadResources(getEngine(), this);
 	   
-	   mainMenu = new MainMenu();
+	   menuSwitcher = new MenuSwitcher();
+	   
+	   mainMenu = new MainMenu(camera);
+	   mainMenu.setMainMenuOnButtonsClickedListeners(this);
+	   
+	   tutorialMenu = new TutorialMenu(camera);
 	   
 		pOnCreateResourcesCallback.onCreateResourcesFinished();
 	}
@@ -42,10 +53,26 @@ public class GameActivity extends BaseGameActivity {
 
 	@Override
 	public void onPopulateScene(Scene pScene, OnPopulateSceneCallback pOnPopulateSceneCallback) throws Exception {
-	   mainMenu.setCamera(camera);
-	   mainMenu.show();
+	   menuSwitcher.switchMenuTo(mainMenu);
 	   
 		pOnPopulateSceneCallback.onPopulateSceneFinished();
-	}		
+	}
 
+   @Override
+   public void onStartButtonClicked() {
+      menuSwitcher.switchMenuTo(tutorialMenu);
+   }
+
+   @Override
+   public boolean onKeyDown(int keyCode, KeyEvent event) {
+      if (keyCode == KeyEvent.KEYCODE_BACK) {
+         if(menuSwitcher.getCurrentMenu() == tutorialMenu) {
+            menuSwitcher.switchMenuTo(mainMenu);
+         }
+         
+          return true;
+      }
+      return super.onKeyDown(keyCode, event);
+  }
+   
 }
