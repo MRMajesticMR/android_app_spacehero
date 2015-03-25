@@ -16,6 +16,7 @@ public class ResourceManager {
    private BitmapTextureAtlas startGameBtnAtlas;
    
    private TiledTextureRegion startGameTextureRegion; 
+   private TiledTextureRegion pauseGameTextureRegion;
    
    private ResourceManager() {
       
@@ -34,6 +35,7 @@ public class ResourceManager {
       startGameBtnAtlas = new BitmapTextureAtlas(engine.getTextureManager(), 512, 512);
       
       startGameTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(startGameBtnAtlas, context.getAssets(), "gfx/menu/main/start_btn.png", 0, 0, 2, 1);
+      pauseGameTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(startGameBtnAtlas, context.getAssets(), "gfx/menu/game/pause_btn.png", 0, 65, 2, 1);
       
       startGameBtnAtlas.load();
    }
@@ -51,6 +53,10 @@ public class ResourceManager {
    
    public TiledTextureRegion getStartGameBtnTextureRegion() {
       return startGameTextureRegion;
+   }
+   
+   public TiledTextureRegion getPauseGameBtnTextureRegion() {
+      return pauseGameTextureRegion;
    }
    
 }

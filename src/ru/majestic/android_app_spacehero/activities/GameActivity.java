@@ -10,7 +10,8 @@ import ru.majestic.android_app_spacehero.andengine.GameEngineOptions;
 import ru.majestic.android_app_spacehero.andengine.GameScene;
 import ru.majestic.android_app_spacehero.menu.MenuSwitcher;
 import ru.majestic.android_app_spacehero.menu.impl.MainMenu;
-import ru.majestic.android_app_spacehero.menu.impl.TutorialMenu;
+import ru.majestic.android_app_spacehero.menu.impl.GameMenu;
+import ru.majestic.android_app_spacehero.menu.impl.PauseGameMenu;
 import ru.majestic.android_app_spacehero.menu.listeners.MainMenuOnButtonsClickedListeners;
 import ru.majestic.android_app_spacehero.resources.ResourceManager;
 import android.view.KeyEvent;
@@ -23,7 +24,9 @@ public class GameActivity extends BaseGameActivity implements MainMenuOnButtonsC
    private MenuSwitcher    menuSwitcher;
    
    private MainMenu        mainMenu;
-   private TutorialMenu    tutorialMenu;
+   private GameMenu        tutorialMenu;
+   private PauseGameMenu   pauseGameMenu;
+   
    
 	@Override
 	public EngineOptions onCreateEngineOptions() {
@@ -36,12 +39,14 @@ public class GameActivity extends BaseGameActivity implements MainMenuOnButtonsC
 	public void onCreateResources(OnCreateResourcesCallback pOnCreateResourcesCallback) throws Exception {
 	   ResourceManager.getInstance().loadResources(getEngine(), this);
 	   
-	   menuSwitcher = new MenuSwitcher();
+	   menuSwitcher = new MenuSwitcher();	
 	   
-	   mainMenu = new MainMenu(camera);
+	   mainMenu      = new MainMenu(camera);
+	   tutorialMenu  = new GameMenu(camera);
+	   pauseGameMenu = new PauseGameMenu(camera);
+	   	   
 	   mainMenu.setMainMenuOnButtonsClickedListeners(this);
-	   
-	   tutorialMenu = new TutorialMenu(camera);
+	   	   
 	   
 		pOnCreateResourcesCallback.onCreateResourcesFinished();
 	}
@@ -68,9 +73,13 @@ public class GameActivity extends BaseGameActivity implements MainMenuOnButtonsC
       if (keyCode == KeyEvent.KEYCODE_BACK) {
          if(menuSwitcher.getCurrentMenu() == tutorialMenu) {
             menuSwitcher.switchMenuTo(mainMenu);
+            return true;
          }
          
-          return true;
+         if(menuSwitcher.getCurrentMenu() == mainMenu) {
+            finish();
+            return true;
+         }                  
       }
       return super.onKeyDown(keyCode, event);
   }

@@ -4,6 +4,8 @@ import org.andengine.engine.camera.Camera;
 import org.andengine.entity.sprite.ButtonSprite;
 import org.andengine.entity.sprite.ButtonSprite.OnClickListener;
 
+import android.util.Log;
+
 import ru.majestic.android_app_spacehero.menu.GameMenuSkeleton;
 import ru.majestic.android_app_spacehero.menu.listeners.MainMenuOnButtonsClickedListeners;
 import ru.majestic.android_app_spacehero.resources.ResourceManager;
