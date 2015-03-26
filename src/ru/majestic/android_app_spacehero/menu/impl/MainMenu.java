@@ -6,13 +6,12 @@ import org.andengine.entity.sprite.ButtonSprite.OnClickListener;
 
 import ru.majestic.android_app_spacehero.menu.GameMenuSkeleton;
 import ru.majestic.android_app_spacehero.menu.animation.listeners.OnAnimationEndListener;
+import ru.majestic.android_app_spacehero.menu.animation.main.StartGameButtonHideAnim;
 import ru.majestic.android_app_spacehero.menu.animation.main.StartGameButtonShowAnim;
 import ru.majestic.android_app_spacehero.menu.listeners.MainMenuOnButtonsClickedListeners;
 import ru.majestic.android_app_spacehero.resources.ResourceManager;
 
 public class MainMenu extends GameMenuSkeleton implements OnClickListener, OnAnimationEndListener {   
-   
-   private static final String LOG_TAG = MainMenu.class.getSimpleName();      
    
    //Logo sprite
    private ButtonSprite startButton;
@@ -21,13 +20,18 @@ public class MainMenu extends GameMenuSkeleton implements OnClickListener, OnAni
    
    private StartGameButtonShowAnim startButtonShowAnim;
    
+   private StartGameButtonHideAnim  startButtonHideAnim;
+   
    private MainMenuOnButtonsClickedListeners mainMenuOnButtonsClickedListeners;   
    
    public MainMenu(Camera camera) {
       super(camera);
       
-      startButtonShowAnim = new StartGameButtonShowAnim(startButton, camera.getHeight() * 2, camera.getHeight() * 0.7f);
-      startButtonShowAnim.setOnAnimationEndListener(this);
+      startButtonShowAnim = new StartGameButtonShowAnim(startButton, camera.getHeight() * 0.7f);      
+      
+      startButtonHideAnim = new StartGameButtonHideAnim(startButton, camera.getHeight() * 0.7f);
+      
+      startButtonHideAnim.setOnAnimationEndListener(this);
    }
    
    @Override
@@ -50,13 +54,13 @@ public class MainMenu extends GameMenuSkeleton implements OnClickListener, OnAni
    public void show() {      
       camera.setHUD(this);
       
-      startButtonShowAnim.start();                        
+      startButtonShowAnim.start();
+      notifyGameMenuVisibleListenersOnShow();
    }
 
    @Override
    public void hide() {
-      
-      notifyGameMenuVisibleListenersOnHide();
+      startButtonHideAnim.start();      
    }            
 
    public void setMainMenuOnButtonsClickedListeners(MainMenuOnButtonsClickedListeners mainMenuOnButtonsClickedListeners) {
@@ -72,7 +76,7 @@ public class MainMenu extends GameMenuSkeleton implements OnClickListener, OnAni
    
    @Override
    public void onAnimationEnd() {
-      notifyGameMenuVisibleListenersOnShow();
+      notifyGameMenuVisibleListenersOnHide();
    }
 
 }

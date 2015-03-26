@@ -6,6 +6,8 @@ import org.andengine.entity.sprite.Sprite;
 import org.andengine.util.modifier.IModifier;
 import org.andengine.util.modifier.IModifier.IModifierListener;
 
+import android.util.Log;
+
 import ru.majestic.android_app_spacehero.menu.animation.listeners.OnAnimationEndListener;
 
 public abstract class MenuItemAnimationSkeleton implements IMenuItemAnimation, IModifierListener<IEntity> {
@@ -19,8 +21,9 @@ public abstract class MenuItemAnimationSkeleton implements IMenuItemAnimation, I
    }      
 
    @Override
-   public void start() {
+   public void start() {      
       sequenceEntityModifier.reset();
+      sequenceEntityModifier.addModifierListener(this);
       animatedObject.registerEntityModifier(sequenceEntityModifier);
    }
    
@@ -37,6 +40,8 @@ public abstract class MenuItemAnimationSkeleton implements IMenuItemAnimation, I
 
    @Override
    public void onModifierFinished(IModifier<IEntity> pModifier, IEntity pItem) {
+      sequenceEntityModifier.removeModifierListener(this);
+      
       if(onAnimationEndListener != null)
          onAnimationEndListener.onAnimationEnd();     
    }
