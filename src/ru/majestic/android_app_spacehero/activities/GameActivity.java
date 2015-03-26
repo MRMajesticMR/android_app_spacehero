@@ -12,6 +12,7 @@ import ru.majestic.android_app_spacehero.menu.MenuSwitcher;
 import ru.majestic.android_app_spacehero.menu.impl.MainMenu;
 import ru.majestic.android_app_spacehero.menu.impl.PlayMenu;
 import ru.majestic.android_app_spacehero.menu.impl.PauseMenu;
+import ru.majestic.android_app_spacehero.menu.impl.ScoreMenu;
 import ru.majestic.android_app_spacehero.menu.listeners.MainMenuOnButtonsClickedListeners;
 import ru.majestic.android_app_spacehero.menu.listeners.PauseMenuOnButtonsClickedListener;
 import ru.majestic.android_app_spacehero.menu.listeners.PlayMenuOnButtonsClickedListener;
@@ -30,6 +31,7 @@ public class GameActivity extends BaseGameActivity implements MainMenuOnButtonsC
    private MainMenu        mainMenu;
    private PlayMenu        playMenu;
    private PauseMenu       pauseMenu;
+   private ScoreMenu       scoreMenu;
    
    
 	@Override
@@ -45,10 +47,11 @@ public class GameActivity extends BaseGameActivity implements MainMenuOnButtonsC
 	   
 	   menuSwitcher = new MenuSwitcher();	
 	   
-	   mainMenu      = new MainMenu(camera);
-	   playMenu      = new PlayMenu(camera);
-	   pauseMenu     = new PauseMenu(camera);
-	   	   
+	   mainMenu      = new MainMenu    (camera);
+	   playMenu      = new PlayMenu    (camera);
+	   pauseMenu     = new PauseMenu   (camera);
+	   scoreMenu     = new ScoreMenu   (camera);	   
+	   
 	   mainMenu.setMainMenuOnButtonsClickedListeners(this);
 	   playMenu.setPlayMenuOnButtonsClickedListener(this);
 	   pauseMenu.setPauseMenuOnButtonsClickedListener(this);

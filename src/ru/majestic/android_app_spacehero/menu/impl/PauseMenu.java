@@ -22,14 +22,14 @@ public class PauseMenu extends GameMenuSkeleton implements OnClickListener {
    @Override
    protected void initMenuElements() {
       
-      resumeButton = new ButtonSprite(0, 0, ResourceManager.getInstance().getPauseGameBtnTextureRegion(), ResourceManager.getInstance().getEngine().getVertexBufferObjectManager());
+      resumeButton = new ButtonSprite(0, 0, ResourceManager.getInstance().getResumeGameTextureRegion(), ResourceManager.getInstance().getEngine().getVertexBufferObjectManager());
       
       resumeButton.setWidth    (camera.getWidth() * 0.4f);
       resumeButton.setHeight   (camera.getHeight() * 0.1f);
       resumeButton.setX        (camera.getWidth() * 0.05f);
       resumeButton.setY        (camera.getHeight() * 0.7f);
       
-      exitButton = new ButtonSprite(0, 0, ResourceManager.getInstance().getPauseGameBtnTextureRegion(), ResourceManager.getInstance().getEngine().getVertexBufferObjectManager());
+      exitButton = new ButtonSprite(0, 0, ResourceManager.getInstance().getExitGameTextureRegion(), ResourceManager.getInstance().getEngine().getVertexBufferObjectManager());
       
       exitButton.setWidth    (camera.getWidth() * 0.4f);
       exitButton.setHeight   (camera.getHeight() * 0.1f);
