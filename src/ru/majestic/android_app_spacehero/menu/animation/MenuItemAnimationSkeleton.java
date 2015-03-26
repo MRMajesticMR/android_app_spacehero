@@ -10,17 +10,13 @@ import ru.majestic.android_app_spacehero.menu.animation.listeners.OnAnimationEnd
 
 public abstract class MenuItemAnimationSkeleton implements IMenuItemAnimation, IModifierListener<IEntity> {
 
-   private SequenceEntityModifier   sequenceEntityModifier;
-   private Sprite                   animatedObject;
-   private OnAnimationEndListener   onAnimationEndListener;
+   protected   SequenceEntityModifier   sequenceEntityModifier;
+   private     Sprite                   animatedObject;
+   private     OnAnimationEndListener   onAnimationEndListener;
    
    public MenuItemAnimationSkeleton(Sprite animatedObject) {
       this.animatedObject = animatedObject;
-      
-      initModifiers(sequenceEntityModifier);
    }      
-   
-   protected abstract void initModifiers(SequenceEntityModifier sequenceEntityModifier);
 
    @Override
    public void start() {
