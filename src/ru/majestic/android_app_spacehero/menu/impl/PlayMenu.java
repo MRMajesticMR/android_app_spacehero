@@ -5,6 +5,7 @@ import org.andengine.entity.sprite.ButtonSprite;
 import org.andengine.entity.sprite.ButtonSprite.OnClickListener;
 
 import ru.majestic.android_app_spacehero.menu.GameMenuSkeleton;
+import ru.majestic.android_app_spacehero.menu.animation.GameMenuAnimator;
 import ru.majestic.android_app_spacehero.menu.listeners.PlayMenuOnButtonsClickedListener;
 import ru.majestic.android_app_spacehero.menu.tutorial.Tutorial;
 import ru.majestic.android_app_spacehero.resources.ResourceManager;
@@ -38,27 +39,21 @@ public class PlayMenu extends GameMenuSkeleton implements OnClickListener {
       attachChild(pauseButton); 
    }
    
-   private boolean isLaunchedFirstTime() {
-      return false;
-   }
-   
    @Override
-   public void show() {
-      camera.setHUD(this);
+   protected void initShowElementsModifiers(GameMenuAnimator gameMenuAnimator) {
+      // TODO Auto-generated method stub
       
-      if(isLaunchedFirstTime()) {
-         tutorial = new Tutorial(camera.getWidth(), camera.getHeight());         
-         attachChild(tutorial);
-         tutorial.show();
-      }
-      
-      notifyGameMenuVisibleListenersOnShow();
    }
 
    @Override
-   public void hide() {
-      notifyGameMenuVisibleListenersOnHide();
-   }     
+   protected void initHideElementsModifiers(GameMenuAnimator gameMenuAnimator) {
+      // TODO Auto-generated method stub
+      
+   }
+   
+   private boolean isLaunchedFirstTime() {
+      return false;
+   }          
 
    public void setPlayMenuOnButtonsClickedListener(PlayMenuOnButtonsClickedListener playMenuOnButtonsClickedListener) {
       this.playMenuOnButtonsClickedListener = playMenuOnButtonsClickedListener;
@@ -70,6 +65,17 @@ public class PlayMenu extends GameMenuSkeleton implements OnClickListener {
          playMenuOnButtonsClickedListener.onPauseButtonClicked();
       }
       
-   }   
+   }     
+   
+   @Override
+   public void onShowMenuAnimationEnd() {            
+      if(isLaunchedFirstTime()) {
+         tutorial = new Tutorial(camera.getWidth(), camera.getHeight());         
+         attachChild(tutorial);
+         tutorial.show();
+      }
+      
+      notifyGameMenuVisibleListenersOnShow();
+   }
 
 }

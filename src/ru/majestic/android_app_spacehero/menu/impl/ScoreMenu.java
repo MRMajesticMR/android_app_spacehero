@@ -4,6 +4,7 @@ import org.andengine.engine.camera.Camera;
 import org.andengine.entity.sprite.ButtonSprite;
 
 import ru.majestic.android_app_spacehero.menu.GameMenuSkeleton;
+import ru.majestic.android_app_spacehero.menu.animation.GameMenuAnimator;
 
 public class ScoreMenu extends GameMenuSkeleton {
 
@@ -15,19 +16,19 @@ public class ScoreMenu extends GameMenuSkeleton {
    }
 
    @Override
-   public void show() {
-      camera.setHUD(this);
-      
-      notifyGameMenuVisibleListenersOnShow();
-   }
-
-   @Override
-   public void hide() {
-      notifyGameMenuVisibleListenersOnHide();
-   }
-
-   @Override
    protected void initMenuElements() {
+      
+   }
+   
+   @Override
+   protected void initShowElementsModifiers(GameMenuAnimator gameMenuAnimator) {
+      // TODO Auto-generated method stub
+      
+   }
+
+   @Override
+   protected void initHideElementsModifiers(GameMenuAnimator gameMenuAnimator) {
+      // TODO Auto-generated method stub
       
    }
 
