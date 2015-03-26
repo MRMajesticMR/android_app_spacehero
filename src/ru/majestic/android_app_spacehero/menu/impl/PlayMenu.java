@@ -5,17 +5,20 @@ import org.andengine.entity.sprite.ButtonSprite;
 import org.andengine.entity.sprite.ButtonSprite.OnClickListener;
 
 import ru.majestic.android_app_spacehero.menu.GameMenuSkeleton;
+import ru.majestic.android_app_spacehero.menu.listeners.PlayMenuOnButtonsClickedListener;
 import ru.majestic.android_app_spacehero.menu.tutorial.Tutorial;
 import ru.majestic.android_app_spacehero.resources.ResourceManager;
 
-public class GameMenu extends GameMenuSkeleton implements OnClickListener {
+public class PlayMenu extends GameMenuSkeleton implements OnClickListener {
 
    //Score
    //Sheep control panel
    private ButtonSprite    pauseButton;
    private Tutorial        tutorial;
    
-   public GameMenu(Camera camera) {
+   private PlayMenuOnButtonsClickedListener playMenuOnButtonsClickedListener;
+   
+   public PlayMenu(Camera camera) {
       super(camera);
    }   
    
@@ -55,11 +58,17 @@ public class GameMenu extends GameMenuSkeleton implements OnClickListener {
    @Override
    public void hide() {
       notifyGameMenuVisibleListenersOnHide();
+   }     
+
+   public void setPlayMenuOnButtonsClickedListener(PlayMenuOnButtonsClickedListener playMenuOnButtonsClickedListener) {
+      this.playMenuOnButtonsClickedListener = playMenuOnButtonsClickedListener;
    }
 
    @Override
    public void onClick(ButtonSprite pButtonSprite, float pTouchAreaLocalX, float pTouchAreaLocalY) {
-      // TODO Auto-generated method stub
+      if(pButtonSprite == pauseButton) {
+         playMenuOnButtonsClickedListener.onPauseButtonClicked();
+      }
       
    }   
 

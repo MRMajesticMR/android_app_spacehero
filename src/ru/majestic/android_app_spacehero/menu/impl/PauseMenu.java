@@ -5,14 +5,17 @@ import org.andengine.entity.sprite.ButtonSprite;
 import org.andengine.entity.sprite.ButtonSprite.OnClickListener;
 
 import ru.majestic.android_app_spacehero.menu.GameMenuSkeleton;
+import ru.majestic.android_app_spacehero.menu.listeners.PauseMenuOnButtonsClickedListener;
 import ru.majestic.android_app_spacehero.resources.ResourceManager;
 
-public class PauseGameMenu extends GameMenuSkeleton implements OnClickListener {
+public class PauseMenu extends GameMenuSkeleton implements OnClickListener {
 
    private ButtonSprite    resumeButton;
    private ButtonSprite    exitButton;
    
-   public PauseGameMenu(Camera camera) {
+   private PauseMenuOnButtonsClickedListener pauseMenuOnButtonsClickedListener;
+   
+   public PauseMenu(Camera camera) {
       super(camera);
    }
 
@@ -53,11 +56,21 @@ public class PauseGameMenu extends GameMenuSkeleton implements OnClickListener {
    @Override
    public void hide() {
       notifyGameMenuVisibleListenersOnHide();      
+   }      
+
+   public void setPauseMenuOnButtonsClickedListener(PauseMenuOnButtonsClickedListener pauseMenuOnButtonsClickedListener) {
+      this.pauseMenuOnButtonsClickedListener = pauseMenuOnButtonsClickedListener;
    }
 
    @Override
    public void onClick(ButtonSprite pButtonSprite, float pTouchAreaLocalX, float pTouchAreaLocalY) {
+      if(pButtonSprite == resumeButton) {
+         pauseMenuOnButtonsClickedListener.onResumeButtonClicked();
+      }
       
+      if(pButtonSprite == exitButton) {
+         pauseMenuOnButtonsClickedListener.onExitButtonClicked();
+      }
    }
 
 }
