@@ -7,7 +7,6 @@ import org.andengine.util.modifier.IModifier;
 import org.andengine.util.modifier.IModifier.IModifierListener;
 
 import android.util.Log;
-
 import ru.majestic.android_app_spacehero.menu.animation.listeners.OnAnimationEndListener;
 
 public abstract class MenuItemAnimationSkeleton implements IMenuItemAnimation, IModifierListener<IEntity> {
@@ -44,6 +43,11 @@ public abstract class MenuItemAnimationSkeleton implements IMenuItemAnimation, I
       
       if(onAnimationEndListener != null)
          onAnimationEndListener.onAnimationEnd();     
+   }
+   
+   @Override
+   public float getAnimationTime() {
+      return sequenceEntityModifier.getDuration();
    }
    
 }

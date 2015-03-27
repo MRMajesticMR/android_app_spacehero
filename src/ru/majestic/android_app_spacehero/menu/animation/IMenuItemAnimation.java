@@ -4,6 +4,7 @@ import ru.majestic.android_app_spacehero.menu.animation.listeners.OnAnimationEnd
 
 public interface IMenuItemAnimation {
    
-   public void start                      ();   
-   public void setOnAnimationEndListener  (OnAnimationEndListener onAnimationEndListener);
+   public void    start                      ();   
+   public void    setOnAnimationEndListener  (OnAnimationEndListener onAnimationEndListener);
+   public float   getAnimationTime           ();
 }

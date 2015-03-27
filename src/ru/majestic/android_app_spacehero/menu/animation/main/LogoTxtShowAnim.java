@@ -1,5 +1,6 @@
 package ru.majestic.android_app_spacehero.menu.animation.main;
 
+import org.andengine.entity.modifier.DelayModifier;
 import org.andengine.entity.modifier.MoveYModifier;
 import org.andengine.entity.modifier.SequenceEntityModifier;
 import org.andengine.entity.sprite.Sprite;
@@ -13,6 +14,7 @@ public class LogoTxtShowAnim extends MenuItemAnimationSkeleton {
       super(animatedObject);              
       
       sequenceEntityModifier = new SequenceEntityModifier(
+            new DelayModifier(1),
             new MoveYModifier(IGameMenu.MENU_ANIMATION_TIME, -1000, endYPosition));           
    }
    

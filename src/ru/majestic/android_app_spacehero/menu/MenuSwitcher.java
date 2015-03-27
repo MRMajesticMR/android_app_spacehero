@@ -32,8 +32,6 @@ public class MenuSwitcher implements GameMenuVisibleListener {
 
    @Override
    public void onMenuHide() {
-      Log.i("SWITCHER", "Menu hide");
-      
       currentMenu.removeGameMenuVisibleListener(this);
       nextMenu.addGameMenuVisibleListener(this);
       nextMenu.show();

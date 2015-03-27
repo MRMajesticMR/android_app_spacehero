@@ -1,6 +1,7 @@
 package ru.majestic.android_app_spacehero.menu.animation;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import ru.majestic.android_app_spacehero.menu.animation.listeners.OnAnimationEndListener;
 
@@ -17,6 +18,10 @@ public class GameMenuAnimator {
    private ArrayList<IMenuItemAnimation> showMenuAnimations = new ArrayList<IMenuItemAnimation>();
    private ArrayList<IMenuItemAnimation> hideMenuAnimations = new ArrayList<IMenuItemAnimation>();
 
+   private IMenuItemAnimation    showAnimationWithListener;
+   private IMenuItemAnimation    hideAnimationWithListener;
+   
+   
    private OnMenuVisibleChangedListener onMenuVisibleChangedListener;
    
    private OnAnimationEndListener onShowAnimationEndListener = new OnAnimationEndListener() {
@@ -40,19 +45,25 @@ public class GameMenuAnimator {
    }
    
    public void addShowAnimation(IMenuItemAnimation menuItemAnimation) {
-      if(showMenuAnimations.isEmpty()) {
-         menuItemAnimation.setOnAnimationEndListener(onShowAnimationEndListener);
-      }
-      
       showMenuAnimations.add(menuItemAnimation);
+      
+      if(showAnimationWithListener != null)
+         showAnimationWithListener.setOnAnimationEndListener(null);
+      
+      IMenuItemAnimation animationWithLogestDuration = getAnimationWithLogestDuration(showMenuAnimations);
+      showAnimationWithListener = animationWithLogestDuration;
+      showAnimationWithListener.setOnAnimationEndListener(onShowAnimationEndListener);           
    }
    
-   public void addHideAnimation(IMenuItemAnimation menuItemAnimation) {
-      if(hideMenuAnimations.isEmpty()) {
-         menuItemAnimation.setOnAnimationEndListener(onHideAnimationEndListener);
-      }      
-      
+   public void addHideAnimation(IMenuItemAnimation menuItemAnimation) {            
       hideMenuAnimations.add(menuItemAnimation);
+      
+      if(hideAnimationWithListener != null)
+         hideAnimationWithListener.setOnAnimationEndListener(null);
+      
+      IMenuItemAnimation animationWithLogestDuration = getAnimationWithLogestDuration(hideMenuAnimations);
+      hideAnimationWithListener = animationWithLogestDuration;
+      hideAnimationWithListener.setOnAnimationEndListener(onHideAnimationEndListener);
    }
 
    public void show() {
@@ -65,6 +76,16 @@ public class GameMenuAnimator {
       for(IMenuItemAnimation anim: hideMenuAnimations) {
          anim.start();
       }
+   }
+   
+   private IMenuItemAnimation getAnimationWithLogestDuration(List<IMenuItemAnimation> animations) {
+      IMenuItemAnimation result = animations.get(0);
+      for(IMenuItemAnimation anim: animations) {
+         if(anim.getAnimationTime() > result.getAnimationTime())
+            result = anim;
+      }
+      
+      return result;
    }
    
 }
