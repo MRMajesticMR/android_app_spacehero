@@ -6,6 +6,8 @@ import org.andengine.entity.sprite.ButtonSprite.OnClickListener;
 
 import ru.majestic.android_app_spacehero.menu.GameMenuSkeleton;
 import ru.majestic.android_app_spacehero.menu.animation.GameMenuAnimator;
+import ru.majestic.android_app_spacehero.menu.animation.play.PauseGameButtonHideAnim;
+import ru.majestic.android_app_spacehero.menu.animation.play.PauseGameButtonShowAnim;
 import ru.majestic.android_app_spacehero.menu.listeners.PlayMenuOnButtonsClickedListener;
 import ru.majestic.android_app_spacehero.menu.tutorial.Tutorial;
 import ru.majestic.android_app_spacehero.resources.ResourceManager;
@@ -25,12 +27,11 @@ public class PlayMenu extends GameMenuSkeleton implements OnClickListener {
    
    @Override
    protected void initMenuElements() {
-      pauseButton = new ButtonSprite(0, 0, ResourceManager.getInstance().getPauseGameBtnTextureRegion(), ResourceManager.getInstance().getEngine().getVertexBufferObjectManager());
+      pauseButton = new ButtonSprite(-999, -999, ResourceManager.getInstance().getPauseGameBtnTextureRegion(), ResourceManager.getInstance().getEngine().getVertexBufferObjectManager());
       
       pauseButton.setWidth    (40.0f);
       pauseButton.setHeight   (40.0f);
       pauseButton.setX        (camera.getWidth() - pauseButton.getWidth() - 10);
-      pauseButton.setY        (10);
       
       registerTouchArea(pauseButton);
       
@@ -41,13 +42,12 @@ public class PlayMenu extends GameMenuSkeleton implements OnClickListener {
    
    @Override
    protected void initShowElementsModifiers(GameMenuAnimator gameMenuAnimator) {
-      // TODO Auto-generated method stub
-      
+      gameMenuAnimator.addShowAnimation(new PauseGameButtonShowAnim(pauseButton, 10));     
    }
 
    @Override
    protected void initHideElementsModifiers(GameMenuAnimator gameMenuAnimator) {
-      // TODO Auto-generated method stub
+      gameMenuAnimator.addHideAnimation(new PauseGameButtonHideAnim(pauseButton, 10));
       
    }
    

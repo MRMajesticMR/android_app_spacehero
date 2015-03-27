@@ -4,7 +4,7 @@ import ru.majestic.android_app_spacehero.menu.listeners.GameMenuVisibleListener;
 
 public interface IGameMenu {
    
-   public static final float MENU_ANIMATION_TIME = 1f;//In seconds
+   public static final float MENU_ANIMATION_TIME = 0.5f;//In seconds
 
    public void       show           ();
    public void       hide           ();   
