@@ -8,6 +8,8 @@ import org.andengine.ui.activity.BaseGameActivity;
 import ru.majestic.android_app_spacehero.andengine.GameCamera;
 import ru.majestic.android_app_spacehero.andengine.GameEngineOptions;
 import ru.majestic.android_app_spacehero.andengine.GameScene;
+import ru.majestic.android_app_spacehero.game.user.TurnState;
+import ru.majestic.android_app_spacehero.game.user.UserSpaceship;
 import ru.majestic.android_app_spacehero.menu.MenuSwitcher;
 import ru.majestic.android_app_spacehero.menu.impl.MainMenu;
 import ru.majestic.android_app_spacehero.menu.impl.PlayMenu;
@@ -33,6 +35,8 @@ public class GameActivity extends BaseGameActivity implements MainMenuOnButtonsC
    private PauseMenu       pauseMenu;
    private ScoreMenu       scoreMenu;
    
+   private UserSpaceship   userSpaceship;
+   
    
 	@Override
 	public EngineOptions onCreateEngineOptions() {
@@ -56,6 +60,10 @@ public class GameActivity extends BaseGameActivity implements MainMenuOnButtonsC
 	   playMenu.setPlayMenuOnButtonsClickedListener(this);
 	   pauseMenu.setPauseMenuOnButtonsClickedListener(this);
 	   
+	   userSpaceship = new UserSpaceship();
+	   userSpaceship.setX((camera.getWidth() - userSpaceship.getWidth()) / 2);
+	   userSpaceship.setY(camera.getHeight() / 2);
+	   	   
 		pOnCreateResourcesCallback.onCreateResourcesFinished();
 	}
 
@@ -66,7 +74,9 @@ public class GameActivity extends BaseGameActivity implements MainMenuOnButtonsC
 
 	@Override
 	public void onPopulateScene(Scene pScene, OnPopulateSceneCallback pOnPopulateSceneCallback) throws Exception {
-	   menuSwitcher.switchMenuTo(mainMenu);
+	   userSpaceship.attachTo(pScene);
+	   
+	   menuSwitcher.switchMenuTo(mainMenu);	   	   
 	   
 		pOnPopulateSceneCallback.onPopulateSceneFinished();
 	}

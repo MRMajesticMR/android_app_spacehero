@@ -23,6 +23,7 @@ public class ResourceManager {
    private TiledTextureRegion resumeGameTextureRegion;
    private TiledTextureRegion exitGameTextureRegion;
    
+   private TextureRegion      userSpaceshipTextureRegion;
    
    private ResourceManager() {
       
@@ -45,7 +46,9 @@ public class ResourceManager {
       startGameTextureRegion     = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(startGameBtnAtlas, context.getAssets(), "gfx/menu/main/start_btn.png", 0, 0, 2, 1);
       pauseGameTextureRegion     = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(startGameBtnAtlas, context.getAssets(), "gfx/menu/game/pause_btn.png", 0, 64, 2, 1);
       resumeGameTextureRegion    = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(startGameBtnAtlas, context.getAssets(), "gfx/menu/pause/resume_btn.png", 0, 128, 2, 1);
-      exitGameTextureRegion      = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(startGameBtnAtlas, context.getAssets(), "gfx/menu/pause/exit_btn.png", 0, 172, 2, 1);
+      exitGameTextureRegion      = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(startGameBtnAtlas, context.getAssets(), "gfx/menu/pause/exit_btn.png", 0, 192, 2, 1);      
+
+      userSpaceshipTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(startGameBtnAtlas, context.getAssets(), "gfx/user/light.png", 0, 384);
       
       startGameBtnAtlas.load();
    }
@@ -80,5 +83,10 @@ public class ResourceManager {
    public TextureRegion getLogoTextureRegion() {
       return logoTextureRegion;
    }
+
+   public TextureRegion getUserSpaceshipTextureRegion() {
+      return userSpaceshipTextureRegion;
+   }
+   
    
 }
